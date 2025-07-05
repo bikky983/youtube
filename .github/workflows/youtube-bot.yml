@@ -58,17 +58,16 @@ jobs:
 
       - name: Update token secret
         if: ${{ success() && env.TOKEN_PICKLE != '' }}
-        uses: action-pack/set-secret@v1
-        with:
-          name: 'YOUTUBE_TOKEN_PICKLE'
-          value: ${{ env.TOKEN_PICKLE }}
-          token: ${{ secrets.GH_PA_TOKEN }}
+        run: |
+          echo "${{ env.TOKEN_PICKLE }}" > token_base64.txt
+          echo "Token pickle saved to token_base64.txt"
+          echo "Please manually update the YOUTUBE_TOKEN_PICKLE secret with this content if needed"
 
       - name: Commit posted videos
         if: ${{ success() }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add posted_videos.txt
-          git commit -m "Update posted videos list" || echo "No changes to commit"
+          git add posted_videos.txt token_base64.txt
+          git commit -m "Update posted videos list and token" || echo "No changes to commit"
           git push 
