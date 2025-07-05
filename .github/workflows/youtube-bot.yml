@@ -1,0 +1,74 @@
+name: YouTube Auto-Comment Bot
+
+on:
+  schedule:
+    # Run every 12 hours
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+    # Allow manual triggering
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create client secrets file
+        run: |
+          echo "${{ secrets.YOUTUBE_CLIENT_SECRET }}" > client_secret.json
+
+      - name: Create channel IDs file
+        run: |
+          # Create the file with proper newlines for each channel
+          echo "${{ secrets.YOUTUBE_CHANNEL_IDS }}" | tr ',' '\n' > channel_ids.txt
+
+      - name: Create comments file if not exists
+        run: |
+          if [ ! -f "comments.txt" ]; then
+            echo "${{ secrets.YOUTUBE_COMMENTS }}" > comments.txt
+          fi
+
+      - name: Restore token pickle
+        if: ${{ hashFiles('token.pickle') == '' }}
+        run: |
+          echo "${{ secrets.YOUTUBE_TOKEN_PICKLE }}" | base64 -d > token.pickle
+        continue-on-error: true
+
+      - name: Run YouTube bot
+        run: python main.py --run-once
+
+      - name: Save token pickle
+        if: ${{ success() }}
+        run: |
+          TOKEN_PICKLE=$(base64 -w 0 token.pickle)
+          echo "::add-mask::$TOKEN_PICKLE"
+          echo "TOKEN_PICKLE=$TOKEN_PICKLE" >> $GITHUB_ENV
+
+      - name: Update token secret
+        if: ${{ success() && env.TOKEN_PICKLE != '' }}
+        uses: gliech/create-github-secret-action@v1
+        with:
+          name: YOUTUBE_TOKEN_PICKLE
+          value: ${{ env.TOKEN_PICKLE }}
+          pa_token: ${{ secrets.GH_PA_TOKEN }}
+
+      - name: Commit posted videos
+        if: ${{ success() }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add posted_videos.txt
+          git commit -m "Update posted videos list" || echo "No changes to commit"
+          git push 
