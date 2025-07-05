@@ -4,9 +4,4 @@
 # - Channel handle: @username
 # - Custom URL name: c/ChannelName
 # Examples:
-@TwistedRevengeUS
-@SweetRevengeus
-@BurningRevenge007
-@HiddenRevengeusa
-@TH-RevengeStories
-@XyloStories
+@GoogleIndia
