@@ -58,11 +58,11 @@ jobs:
 
       - name: Update token secret
         if: ${{ success() && env.TOKEN_PICKLE != '' }}
-        uses: gliech/create-github-secret-action@v1
+        uses: action-pack/set-secret@v1
         with:
-          name: YOUTUBE_TOKEN_PICKLE
+          name: 'YOUTUBE_TOKEN_PICKLE'
           value: ${{ env.TOKEN_PICKLE }}
-          pa_token: ${{ secrets.GH_PA_TOKEN }}
+          token: ${{ secrets.GH_PA_TOKEN }}
 
       - name: Commit posted videos
         if: ${{ success() }}
