@@ -210,6 +210,9 @@ class YouTubeBot:
                 video_id = video['id']
                 logging.info(f"Posting comment on video {video_id}: {video['title']}")
                 self.post_comment(video_id)
+                # Add 10-second delay between comments
+                logging.info("Waiting 10 seconds before next comment...")
+                time.sleep(10)
     
     def run(self):
         """Run the bot once"""
