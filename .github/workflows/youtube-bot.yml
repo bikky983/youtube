@@ -63,6 +63,7 @@ jobs:
           name: YOUTUBE_TOKEN_PICKLE
           value: ${{ env.TOKEN_PICKLE }}
           pa_token: ${{ secrets.GH_PA_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit posted videos
         if: ${{ success() }}
