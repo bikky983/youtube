@@ -2,7 +2,6 @@ import os
 import time
 import random
 import logging
-import re
 from datetime import datetime, timezone, timedelta
 from googleapiclient.errors import HttpError
 from youtube_auth import get_authenticated_service
@@ -18,19 +17,26 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
+# YouTube API costs (in units)
+API_COSTS = {
+    'search.list': 100,      # Channel resolution + video search
+    'commentThreads.insert': 50
+}
+
+MAX_QUOTA = 9500  # Stop when reaching this limit
+
 class YouTubeBot:
     def __init__(self):
         """Initialize the YouTube bot"""
         self.youtube = get_authenticated_service()
         self.posted_videos = self._load_posted_videos()
         self.comments = self._load_comments()
-        self.channel_cache = {}  # Cache to store channel ID lookups
+        self.quota_used = 0  # Track quota for current run
+        self.channel_cache = {}  # Cache resolved channel IDs for current run only
     
     def _load_posted_videos(self):
         """Load list of videos that have already been commented on"""
         if not os.path.exists(POSTED_VIDEOS_FILE):
-            with open(POSTED_VIDEOS_FILE, 'w') as f:
-                pass
             return set()
         
         with open(POSTED_VIDEOS_FILE, 'r') as f:
@@ -39,9 +45,14 @@ class YouTubeBot:
     def _load_comments(self):
         """Load comments from file"""
         if not os.path.exists(COMMENTS_FILE):
+            default_comments = [
+                "Great video!",
+                "Very informative content!",
+                "Thanks for sharing!"
+            ]
             with open(COMMENTS_FILE, 'w') as f:
-                f.write("Great video!\nVery informative content!\nThanks for sharing!")
-            
+                f.write("\n".join(default_comments))
+        
         with open(COMMENTS_FILE, 'r') as f:
             return [line.strip() for line in f if line.strip()]
     
@@ -51,93 +62,89 @@ class YouTubeBot:
             f.write(f"{video_id}\n")
         self.posted_videos.add(video_id)
     
-    def _get_channel_id(self, channel_identifier):
-        """
-        Convert a channel handle (@username) or custom URL (c/ChannelName) to a channel ID
-        If a channel ID is provided, it will be returned as is
-        """
-        # If it's already a channel ID (starts with UC), return it
-        if channel_identifier.startswith('UC'):
-            return channel_identifier
-        
-        # Check if we have this in our cache
-        if channel_identifier in self.channel_cache:
-            return self.channel_cache[channel_identifier]
-        
-        try:
-            # Handle @username format
-            if channel_identifier.startswith('@'):
-                username = channel_identifier[1:]  # Remove the @ symbol
-                response = self.youtube.search().list(
-                    part="snippet",
-                    q=f"@{username}",
-                    type="channel",
-                    maxResults=1
-                ).execute()
-                
-                if response.get('items'):
-                    channel_id = response['items'][0]['snippet']['channelId']
-                    logging.info(f"Resolved {channel_identifier} to channel ID: {channel_id}")
-                    self.channel_cache[channel_identifier] = channel_id
-                    return channel_id
-            
-            # Handle c/ChannelName format
-            elif channel_identifier.startswith('c/'):
-                channel_name = channel_identifier[2:]  # Remove the c/ prefix
-                response = self.youtube.search().list(
-                    part="snippet",
-                    q=channel_name,
-                    type="channel",
-                    maxResults=1
-                ).execute()
-                
-                if response.get('items'):
-                    channel_id = response['items'][0]['snippet']['channelId']
-                    logging.info(f"Resolved {channel_identifier} to channel ID: {channel_id}")
-                    self.channel_cache[channel_identifier] = channel_id
-                    return channel_id
-            
-            logging.error(f"Could not resolve {channel_identifier} to a channel ID")
-            return None
-            
-        except HttpError as e:
-            logging.error(f"Error resolving channel identifier {channel_identifier}: {str(e)}")
-            return None
+    def _use_quota(self, cost):
+        """Check if we can use quota without exceeding limit"""
+        if self.quota_used + cost > MAX_QUOTA:
+            logging.warning(f"Quota limit reached: {self.quota_used}/{MAX_QUOTA}")
+            return False
+        self.quota_used += cost
+        logging.info(f"Quota used: {self.quota_used}/{MAX_QUOTA}")
+        return True
     
-    def get_recent_videos(self, channel_identifier):
-        """Get recent videos from a channel"""
-        channel_id = self._get_channel_id(channel_identifier)
+    def get_channel_videos(self, channel_identifier):
+        """
+        Get channel ID and recent videos in a single API call
+        Returns: (channel_id, videos) or (None, []) on failure
+        """
+        # Check if we already resolved this identifier
+        if channel_identifier in self.channel_cache:
+            channel_id = self.channel_cache[channel_identifier]
+            logging.info(f"Using cached channel ID: {channel_identifier} → {channel_id}")
+            return channel_id, []
         
-        if not channel_id:
-            logging.error(f"Skipping channel {channel_identifier} - could not resolve channel ID")
-            return []
+        # Check quota before API call
+        if not self._use_quota(API_COSTS['search.list']):
+            return None, []
         
         try:
-            # Increased maxResults to 20 to ensure we have enough videos to find 3 eligible ones
-            response = self.youtube.search().list(
-                part="snippet",
-                channelId=channel_id,
-                maxResults=20,
-                order="date",
-                type="video"
-            ).execute()
+            # Determine search parameters based on identifier type
+            if channel_identifier.startswith('UC') and len(channel_identifier) == 24:
+                # Direct channel ID search
+                request = self.youtube.search().list(
+                    part="snippet",
+                    channelId=channel_identifier,
+                    maxResults=10,
+                    order="date",
+                    type="video"
+                )
+            else:
+                # Handle @username or custom URL
+                request = self.youtube.search().list(
+                    part="snippet",
+                    q=channel_identifier,
+                    maxResults=10,
+                    order="date",
+                    type="video"
+                )
             
-            return [
+            response = request.execute()
+            items = response.get('items', [])
+            
+            if not items:
+                logging.error(f"No videos found for: {channel_identifier}")
+                return None, []
+            
+            # Get channel ID from first video
+            channel_id = items[0]['snippet']['channelId']
+            self.channel_cache[channel_identifier] = channel_id
+            logging.info(f"Resolved {channel_identifier} to channel ID: {channel_id}")
+            
+            # Extract videos
+            videos = [
                 {
                     'id': item['id']['videoId'],
                     'title': item['snippet']['title'],
                     'publishTime': item['snippet']['publishedAt']
                 }
-                for item in response.get('items', [])
+                for item in items
             ]
+            
+            return channel_id, videos
+            
         except HttpError as e:
-            logging.error(f"Error fetching videos for channel {channel_identifier} (ID: {channel_id}): {str(e)}")
-            return []
+            logging.error(f"Error processing {channel_identifier}: {str(e)}")
+            if e.resp.status == 403 and 'quotaExceeded' in str(e):
+                self.quota_used = MAX_QUOTA  # Set to limit to stop further processing
+            return None, []
     
     def post_comment(self, video_id):
         """Post a comment on a video with exponential backoff retry"""
         if not self.comments:
             logging.error("No comments available to post")
+            return False
+            
+        # Check quota before proceeding
+        if not self._use_quota(API_COSTS['commentThreads.insert']):
             return False
             
         comment_text = random.choice(self.comments)
@@ -168,6 +175,11 @@ class YouTubeBot:
                 retry_count += 1
                 logging.error(f"Error posting comment to {video_id} (attempt {retry_count}): {str(e)}")
                 
+                # Handle quota errors
+                if e.resp.status == 403 and 'quotaExceeded' in str(e):
+                    self.quota_used = MAX_QUOTA
+                    return False
+                
                 if retry_count < MAX_RETRIES:
                     time.sleep(retry_delay)
                     retry_delay *= 2  # Exponential backoff
@@ -178,14 +190,24 @@ class YouTubeBot:
     def check_and_comment_videos(self):
         """Check for new videos and post comments if they meet criteria"""
         for channel_identifier in CHANNEL_IDS:
+            # Check quota before processing each channel
+            if self.quota_used >= MAX_QUOTA:
+                logging.critical(f"Stopping - quota limit reached: {self.quota_used}/{MAX_QUOTA}")
+                return
+                
             if not channel_identifier or channel_identifier.startswith('#'):
                 continue
                 
             channel_identifier = channel_identifier.strip()
-            logging.info(f"Checking channel: {channel_identifier}")
-            videos = self.get_recent_videos(channel_identifier)
+            logging.info(f"Processing channel: {channel_identifier}")
             
-            # Filter videos that are at least 3 hours old and not already commented on
+            # Get channel ID and videos in single API call
+            channel_id, videos = self.get_channel_videos(channel_identifier)
+            
+            if not channel_id or not videos:
+                continue
+            
+            # Filter videos that are at least 3 hours old and not commented
             eligible_videos = []
             for video in videos:
                 video_id = video['id']
@@ -203,14 +225,21 @@ class YouTubeBot:
                     eligible_videos.append(video)
                 else:
                     hours_left = (COMMENT_DELAY - time_difference.total_seconds()) / 3600
-                    logging.info(f"Video {video_id} not yet eligible for commenting. {hours_left:.2f} hours left.")
+                    logging.info(f"Video {video_id} not yet eligible. {hours_left:.2f} hours left.")
             
-            # Limit to the 3 most recent eligible videos
-            for video in eligible_videos[:3]:
+            # Process eligible videos
+            for video in eligible_videos[:3]:  # Limit to 3 most recent
                 video_id = video['id']
+                
+                # Check quota before each comment
+                if self.quota_used >= MAX_QUOTA:
+                    logging.critical(f"Quota limit reached during commenting: {self.quota_used}/{MAX_QUOTA}")
+                    return
+                
                 logging.info(f"Posting comment on video {video_id}: {video['title']}")
                 self.post_comment(video_id)
-                # Add 10-second delay between comments
+                
+                # Add delay between comments
                 logging.info("Waiting 10 seconds before next comment...")
                 time.sleep(10)
     
@@ -218,10 +247,11 @@ class YouTubeBot:
         """Run the bot once"""
         try:
             self.check_and_comment_videos()
+            logging.info(f"Run completed. Total quota used: {self.quota_used}/{MAX_QUOTA}")
         except Exception as e:
             logging.error(f"Unexpected error: {str(e)}")
 
 
 if __name__ == "__main__":
     bot = YouTubeBot()
-    bot.run() 
+    bot.run()
