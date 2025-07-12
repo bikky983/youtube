@@ -39,8 +39,12 @@ class YouTubeBot:
         if not os.path.exists(POSTED_VIDEOS_FILE):
             return set()
         
-        with open(POSTED_VIDEOS_FILE, 'r') as f:
-            return set(line.strip() for line in f if line.strip())
+        try:
+            with open(POSTED_VIDEOS_FILE, 'r', encoding='utf-8') as f:
+                return set(line.strip() for line in f if line.strip())
+        except UnicodeDecodeError:
+            with open(POSTED_VIDEOS_FILE, 'r', encoding='utf-8', errors='ignore') as f:
+                return set(line.strip() for line in f if line.strip())
     
     def _load_comments(self):
         """Load comments from file"""
@@ -50,15 +54,20 @@ class YouTubeBot:
                 "Very informative content!",
                 "Thanks for sharing!"
             ]
-            with open(COMMENTS_FILE, 'w') as f:
+            with open(COMMENTS_FILE, 'w', encoding='utf-8') as f:
                 f.write("\n".join(default_comments))
         
-        with open(COMMENTS_FILE, 'r') as f:
-            return [line.strip() for line in f if line.strip()]
+        try:
+            with open(COMMENTS_FILE, 'r', encoding='utf-8') as f:
+                return [line.strip() for line in f if line.strip()]
+        except UnicodeDecodeError:
+            # Fallback to read with errors ignored
+            with open(COMMENTS_FILE, 'r', encoding='utf-8', errors='ignore') as f:
+                return [line.strip() for line in f if line.strip()]
     
     def _save_posted_video(self, video_id):
         """Save video ID to posted videos file"""
-        with open(POSTED_VIDEOS_FILE, 'a') as f:
+        with open(POSTED_VIDEOS_FILE, 'a', encoding='utf-8') as f:
             f.write(f"{video_id}\n")
         self.posted_videos.add(video_id)
     

@@ -74,3 +74,72 @@
 2025-07-05 11:02:29,932 - INFO - Successfully commented on video HxYGLLNczC8
 2025-07-05 11:02:29,933 - INFO - Posting comment on video Eir4LD-iWuk: How Much My Indie Game Made with 1 Million Android Downloads
 2025-07-05 11:02:30,893 - INFO - Successfully commented on video Eir4LD-iWuk
+2025-07-12 15:02:04,018 - INFO - Starting YouTube Auto-Comment Bot
+2025-07-12 15:04:23,041 - INFO - Starting YouTube Auto-Comment Bot
+2025-07-12 15:04:42,084 - INFO - Starting YouTube Auto-Comment Bot
+2025-07-12 15:14:38,934 - INFO - Starting YouTube Auto-Comment Bot
+2025-07-12 15:14:38,939 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-07-12 15:15:50,296 - INFO - Starting YouTube Auto-Comment Bot
+2025-07-12 15:15:50,301 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-07-12 15:15:50,307 - INFO - Running bot once
+2025-07-12 15:15:50,308 - INFO - Processing channel: @TwistedRevengeUS
+2025-07-12 15:15:50,308 - INFO - Quota used: 100/9500
+2025-07-12 15:15:51,498 - INFO - Resolved @TwistedRevengeUS to channel ID: UCC216cCAu5dJ024mJ4qjsdg
+2025-07-12 15:15:51,498 - INFO - Processing channel: UC9LfSHP4BEPwv4WPh9YrlZQ
+2025-07-12 15:15:51,498 - INFO - Quota used: 200/9500
+2025-07-12 15:15:52,013 - INFO - Resolved UC9LfSHP4BEPwv4WPh9YrlZQ to channel ID: UC9LfSHP4BEPwv4WPh9YrlZQ
+2025-07-12 15:15:52,014 - INFO - Processing channel: UCWswINRay_7aA50BgawObxg
+2025-07-12 15:15:52,014 - INFO - Quota used: 300/9500
+2025-07-12 15:15:52,520 - INFO - Resolved UCWswINRay_7aA50BgawObxg to channel ID: UCWswINRay_7aA50BgawObxg
+2025-07-12 15:15:52,522 - INFO - Processing channel: UCZJOEqLQMyz21lXe8DVSaYg
+2025-07-12 15:15:52,522 - INFO - Quota used: 400/9500
+2025-07-12 15:15:53,051 - INFO - Resolved UCZJOEqLQMyz21lXe8DVSaYg to channel ID: UCZJOEqLQMyz21lXe8DVSaYg
+2025-07-12 15:15:53,052 - INFO - Posting comment on video nlASXEpQfv4: They Mocked Me at My Sister’s Wedding — Until the Groom Saluted Me and Said, “Major General, Ma’am.”
+2025-07-12 15:15:53,052 - INFO - Quota used: 450/9500
+2025-07-12 15:15:53,979 - INFO - Successfully commented on video nlASXEpQfv4
+2025-07-12 15:15:53,980 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 15:16:03,981 - INFO - Processing channel: UCP1cR6JlZuQQkg5zzq6x0YQ
+2025-07-12 15:16:03,982 - INFO - Quota used: 550/9500
+2025-07-12 15:16:04,507 - INFO - Resolved UCP1cR6JlZuQQkg5zzq6x0YQ to channel ID: UCP1cR6JlZuQQkg5zzq6x0YQ
+2025-07-12 15:16:04,508 - INFO - Processing channel: @TheFinalRevenge
+2025-07-12 15:16:04,511 - INFO - Quota used: 650/9500
+2025-07-12 15:16:05,100 - INFO - Resolved @TheFinalRevenge to channel ID: UC0tGVfjYk1JJCDUynYTZkpQ
+2025-07-12 15:16:05,100 - INFO - Posting comment on video ftZuJK0f8fw: THE FINAL REVENGE
+2025-07-12 15:16:05,101 - INFO - Quota used: 700/9500
+2025-07-12 15:16:05,538 - WARNING - Encountered 403 Forbidden with reason "forbidden"
+2025-07-12 15:16:05,539 - ERROR - Error posting comment to ftZuJK0f8fw (attempt 1): <HttpError 403 when requesting https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&alt=json returned "The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.". Details: "[{'message': 'The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.', 'domain': 'youtube.commentThread', 'reason': 'forbidden', 'location': 'body', 'locationType': 'other'}]">
+2025-07-12 15:17:05,985 - WARNING - Encountered 403 Forbidden with reason "forbidden"
+2025-07-12 15:17:05,986 - ERROR - Error posting comment to ftZuJK0f8fw (attempt 2): <HttpError 403 when requesting https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&alt=json returned "The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.". Details: "[{'message': 'The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.', 'domain': 'youtube.commentThread', 'reason': 'forbidden', 'location': 'body', 'locationType': 'other'}]">
+2025-07-12 15:19:06,448 - WARNING - Encountered 403 Forbidden with reason "forbidden"
+2025-07-12 15:19:06,449 - ERROR - Error posting comment to ftZuJK0f8fw (attempt 3): <HttpError 403 when requesting https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&alt=json returned "The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.". Details: "[{'message': 'The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.', 'domain': 'youtube.commentThread', 'reason': 'forbidden', 'location': 'body', 'locationType': 'other'}]">
+2025-07-12 15:26:41,657 - INFO - Starting YouTube Auto-Comment Bot
+2025-07-12 15:26:41,658 - INFO - Checking token expiration status...
+2025-07-12 15:26:41,659 - INFO - Token expiring soon (2025-07-12 10:40:32.486866). Attempting to refresh...
+2025-07-12 15:26:41,970 - INFO - Token refreshed successfully. New expiry: 2025-07-12 10:41:40.969931
+2025-07-12 15:26:41,984 - INFO - Token refreshed and saved. New expiry: 2025-07-12 10:41:40.969931
+2025-07-12 15:26:41,985 - INFO - Loading credentials from token.pickle
+2025-07-12 15:26:41,993 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-07-12 15:26:42,015 - INFO - Running bot once
+2025-07-12 15:26:42,025 - INFO - Processing channel: @TwistedRevengeUS
+2025-07-12 15:26:42,025 - INFO - Quota used: 100/9500
+2025-07-12 15:26:43,144 - INFO - Resolved @TwistedRevengeUS to channel ID: UCC216cCAu5dJ024mJ4qjsdg
+2025-07-12 15:26:43,145 - INFO - Processing channel: UC9LfSHP4BEPwv4WPh9YrlZQ
+2025-07-12 15:26:43,145 - INFO - Quota used: 200/9500
+2025-07-12 15:26:43,645 - INFO - Resolved UC9LfSHP4BEPwv4WPh9YrlZQ to channel ID: UC9LfSHP4BEPwv4WPh9YrlZQ
+2025-07-12 15:26:43,646 - INFO - Processing channel: UCWswINRay_7aA50BgawObxg
+2025-07-12 15:26:43,646 - INFO - Quota used: 300/9500
+2025-07-12 15:26:44,166 - INFO - Resolved UCWswINRay_7aA50BgawObxg to channel ID: UCWswINRay_7aA50BgawObxg
+2025-07-12 15:26:44,166 - INFO - Processing channel: UCZJOEqLQMyz21lXe8DVSaYg
+2025-07-12 15:26:44,166 - INFO - Quota used: 400/9500
+2025-07-12 15:26:44,691 - INFO - Resolved UCZJOEqLQMyz21lXe8DVSaYg to channel ID: UCZJOEqLQMyz21lXe8DVSaYg
+2025-07-12 15:26:44,691 - INFO - Processing channel: UCP1cR6JlZuQQkg5zzq6x0YQ
+2025-07-12 15:26:44,691 - INFO - Quota used: 500/9500
+2025-07-12 15:26:44,980 - INFO - Resolved UCP1cR6JlZuQQkg5zzq6x0YQ to channel ID: UCP1cR6JlZuQQkg5zzq6x0YQ
+2025-07-12 15:26:44,981 - INFO - Processing channel: @TheFinalRevenge
+2025-07-12 15:26:44,981 - INFO - Quota used: 600/9500
+2025-07-12 15:26:45,561 - INFO - Resolved @TheFinalRevenge to channel ID: UC0tGVfjYk1JJCDUynYTZkpQ
+2025-07-12 15:26:45,562 - INFO - Posting comment on video ftZuJK0f8fw: THE FINAL REVENGE
+2025-07-12 15:26:45,563 - INFO - Quota used: 650/9500
+2025-07-12 15:26:45,750 - WARNING - Encountered 403 Forbidden with reason "forbidden"
+2025-07-12 15:26:45,750 - ERROR - Error posting comment to ftZuJK0f8fw (attempt 1): <HttpError 403 when requesting https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&alt=json returned "The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.". Details: "[{'message': 'The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.', 'domain': 'youtube.commentThread', 'reason': 'forbidden', 'location': 'body', 'locationType': 'other'}]">
+2025-07-12 15:28:07,425 - ERROR - Unexpected error: [WinError 10054] An existing connection was forcibly closed by the remote host

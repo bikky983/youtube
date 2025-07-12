@@ -25,8 +25,12 @@ def load_channel_ids():
     
     # If not in environment, try to load from file
     if os.path.exists(CHANNEL_IDS_FILE):
-        with open(CHANNEL_IDS_FILE, 'r') as f:
-            return [line.strip() for line in f if line.strip() and not line.startswith('#')]
+        try:
+            with open(CHANNEL_IDS_FILE, 'r', encoding='utf-8') as f:
+                return [line.strip() for line in f if line.strip() and not line.startswith('#')]
+        except UnicodeDecodeError:
+            with open(CHANNEL_IDS_FILE, 'r', encoding='utf-8', errors='ignore') as f:
+                return [line.strip() for line in f if line.strip() and not line.startswith('#')]
     
     # Default to empty list if no channel IDs found
     return []

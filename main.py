@@ -3,6 +3,7 @@ import logging
 import argparse
 from youtube_bot import YouTubeBot
 from config import ERROR_LOG_FILE
+from token_manager import refresh_token_if_needed
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='YouTube Auto-Comment Bot')
@@ -16,6 +17,11 @@ def parse_arguments():
         '--run-once',
         action='store_true',
         help='Run the bot only once and exit'
+    )
+    parser.add_argument(
+        '--skip-token-refresh',
+        action='store_true',
+        help='Skip token refresh check (use with caution)'
     )
     return parser.parse_args()
 
@@ -33,6 +39,14 @@ def main():
     root_logger.addHandler(console_handler)
     
     logging.info("Starting YouTube Auto-Comment Bot")
+    
+    # Check and refresh token if needed (4 days before expiration)
+    if not args.skip_token_refresh:
+        logging.info("Checking token expiration status...")
+        if not refresh_token_if_needed(days_threshold=4):
+            logging.error("Failed to refresh token. You may need to manually generate a new token.")
+            logging.error("Run 'python generate_token.py' to create a new token.")
+            return
     
     bot = YouTubeBot()
     

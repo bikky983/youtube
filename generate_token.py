@@ -13,8 +13,8 @@ def main():
     print("Authenticating with YouTube API...")
     print("A browser window will open. Please sign in and grant permissions.")
     
-    # This will create the token.pickle file
-    youtube = get_authenticated_service()
+    # Force creation of a new token
+    youtube = get_authenticated_service(force_new_token=True)
     
     print("\nAuthentication successful!")
     print("token.pickle file has been created.")
