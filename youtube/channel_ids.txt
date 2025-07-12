@@ -1,0 +1,22 @@
+# Add YouTube channels to monitor (one per line)
+# You can use any of these formats:
+# - Channel ID: UC1a2b3c4d5e6f7g8h9i0
+# - Channel handle: @username
+# - Custom URL name: c/ChannelName
+# Examples:
+@TwistedRevengeUS
+UC9LfSHP4BEPwv4WPh9YrlZQ
+UCWswINRay_7aA50BgawObxg
+UCZJOEqLQMyz21lXe8DVSaYg
+UCP1cR6JlZuQQkg5zzq6x0YQ
+@TheFinalRevenge
+@storiesofretaliation
+@Starterstoriess
+@RevengeRoomUS
+@Revenge_Recall
+@RuthlessRevenge17
+@ChroniclesofaSparrowYT
+@FamilyUnfilteredYT
+@TheWivesSecret
+@westernlovestory-d5w
+@nnesfolktales
