@@ -89,44 +89,171 @@ class YouTubeBot:
         if channel_identifier in self.channel_cache:
             channel_id = self.channel_cache[channel_identifier]
             logging.info(f"Using cached channel ID: {channel_identifier} → {channel_id}")
-            return channel_id, []
+            
+            # Now fetch videos for this channel ID
+            try:
+                if not self._use_quota(API_COSTS['search.list']):
+                    return channel_id, []
+                    
+                request = self.youtube.search().list(
+                    part="snippet",
+                    channelId=channel_id,
+                    maxResults=10,
+                    order="date",
+                    type="video"
+                )
+                
+                response = request.execute()
+                items = response.get('items', [])
+                
+                if not items:
+                    logging.info(f"No recent videos found for cached channel: {channel_identifier} (ID: {channel_id})")
+                    return channel_id, []
+                    
+                videos = [
+                    {
+                        'id': item['id']['videoId'],
+                        'title': item['snippet']['title'],
+                        'publishTime': item['snippet']['publishedAt']
+                    }
+                    for item in items
+                ]
+                
+                return channel_id, videos
+                
+            except HttpError as e:
+                logging.error(f"Error fetching videos for cached channel {channel_identifier}: {str(e)}")
+                return channel_id, []
         
         # Check quota before API call
         if not self._use_quota(API_COSTS['search.list']):
             return None, []
         
         try:
-            # Determine search parameters based on identifier type
+            # First try to resolve channel by ID if it looks like a channel ID
             if channel_identifier.startswith('UC') and len(channel_identifier) == 24:
                 # Direct channel ID search
                 request = self.youtube.search().list(
                     part="snippet",
                     channelId=channel_identifier,
-                    maxResults=10,
+                    maxResults=5,
                     order="date",
                     type="video"
                 )
             else:
-                # Handle @username or custom URL
+                # Handle @username or custom URL by first trying a channels.list lookup
+                try:
+                    # Try to resolve the channel directly first
+                    if channel_identifier.startswith('@'):
+                        channel_request = self.youtube.channels().list(
+                            part="id,snippet",
+                            forHandle=channel_identifier.lstrip('@')
+                        )
+                    else:
+                        # Try with forUsername
+                        channel_request = self.youtube.channels().list(
+                            part="id,snippet",
+                            forUsername=channel_identifier.lstrip('@')
+                        )
+                        
+                    channel_response = channel_request.execute()
+                    channel_items = channel_response.get('items', [])
+                    
+                    if channel_items:
+                        # Found the channel directly
+                        channel_id = channel_items[0]['id']
+                        self.channel_cache[channel_identifier] = channel_id
+                        logging.info(f"Directly resolved {channel_identifier} to channel ID: {channel_id}")
+                        
+                        # Now fetch videos for this channel
+                        video_request = self.youtube.search().list(
+                            part="snippet",
+                            channelId=channel_id,
+                            maxResults=10,
+                            order="date",
+                            type="video"
+                        )
+                        
+                        video_response = video_request.execute()
+                        items = video_response.get('items', [])
+                        
+                        if not items:
+                            logging.info(f"No videos found for directly resolved channel: {channel_identifier}")
+                            return channel_id, []
+                            
+                        videos = [
+                            {
+                                'id': item['id']['videoId'],
+                                'title': item['snippet']['title'],
+                                'publishTime': item['snippet']['publishedAt']
+                            }
+                            for item in items
+                        ]
+                        
+                        return channel_id, videos
+                        
+                except HttpError as e:
+                    logging.warning(f"Direct channel resolution failed for {channel_identifier}: {str(e)}")
+                
+                # Fall back to search if direct resolution failed
                 request = self.youtube.search().list(
                     part="snippet",
                     q=channel_identifier,
+                    maxResults=5,
+                    type="channel"  # First search for the channel
+                )
+                
+                response = request.execute()
+                channels = response.get('items', [])
+                
+                if not channels:
+                    logging.error(f"No channel found for: {channel_identifier}")
+                    return None, []
+                    
+                # Get the first matching channel
+                channel_id = channels[0]['snippet']['channelId']
+                self.channel_cache[channel_identifier] = channel_id
+                logging.info(f"Search resolved {channel_identifier} to channel ID: {channel_id}")
+                
+                # Now search for videos from this channel
+                video_request = self.youtube.search().list(
+                    part="snippet",
+                    channelId=channel_id,
                     maxResults=10,
                     order="date",
                     type="video"
                 )
+                
+                video_response = video_request.execute()
+                items = video_response.get('items', [])
+                
+                if not items:
+                    logging.info(f"No videos found for resolved channel: {channel_identifier}")
+                    return channel_id, []
+                    
+                videos = [
+                    {
+                        'id': item['id']['videoId'],
+                        'title': item['snippet']['title'],
+                        'publishTime': item['snippet']['publishedAt']
+                    }
+                    for item in items
+                ]
+                
+                return channel_id, videos
             
+            # This code will only execute for direct channelId search
             response = request.execute()
             items = response.get('items', [])
             
             if not items:
-                logging.error(f"No videos found for: {channel_identifier}")
+                logging.error(f"No videos found for channel ID: {channel_identifier}")
                 return None, []
             
             # Get channel ID from first video
             channel_id = items[0]['snippet']['channelId']
             self.channel_cache[channel_identifier] = channel_id
-            logging.info(f"Resolved {channel_identifier} to channel ID: {channel_id}")
+            logging.info(f"Direct ID search resolved {channel_identifier} to channel ID: {channel_id}")
             
             # Extract videos
             videos = [
@@ -215,6 +342,19 @@ class YouTubeBot:
             
             if not channel_id or not videos:
                 continue
+            
+            # Double-check that the videos are actually from this channel
+            # This prevents commenting on unrelated videos
+            verified_videos = []
+            for video in videos:
+                video_channel_id = video.get('snippet', {}).get('channelId')
+                if video_channel_id and video_channel_id != channel_id:
+                    logging.warning(f"Skipping video {video['id']} - channel mismatch: expected {channel_id}, got {video_channel_id}")
+                    continue
+                verified_videos.append(video)
+            
+            if not verified_videos and videos:
+                logging.warning(f"Found videos for {channel_identifier} but none matched the expected channel ID")
             
             # Filter videos that are at least 3 hours old and not commented
             eligible_videos = []

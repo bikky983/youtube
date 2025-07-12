@@ -143,3 +143,197 @@
 2025-07-12 15:26:45,750 - WARNING - Encountered 403 Forbidden with reason "forbidden"
 2025-07-12 15:26:45,750 - ERROR - Error posting comment to ftZuJK0f8fw (attempt 1): <HttpError 403 when requesting https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&alt=json returned "The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.". Details: "[{'message': 'The comment thread could not be created due to insufficient permissions. The request might not be properly authorized.', 'domain': 'youtube.commentThread', 'reason': 'forbidden', 'location': 'body', 'locationType': 'other'}]">
 2025-07-12 15:28:07,425 - ERROR - Unexpected error: [WinError 10054] An existing connection was forcibly closed by the remote host
+2025-07-12 16:19:58,175 - INFO - Starting YouTube Auto-Comment Bot
+2025-07-12 16:19:58,177 - INFO - Checking token expiration status...
+2025-07-12 16:19:58,177 - INFO - Token expiring soon (2025-07-12 11:26:09.911017). Attempting to refresh...
+2025-07-12 16:19:58,492 - INFO - Token refreshed successfully. New expiry: 2025-07-12 11:34:57.492294
+2025-07-12 16:19:58,533 - INFO - Token refreshed and saved. New expiry: 2025-07-12 11:34:57.492294
+2025-07-12 16:19:58,533 - INFO - Loading credentials from token.pickle
+2025-07-12 16:19:58,540 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-07-12 16:19:58,599 - INFO - Running bot once
+2025-07-12 16:19:58,675 - INFO - Processing channel: UCC216cCAu5dJ024mJ4qjsdg
+2025-07-12 16:19:58,818 - INFO - Quota used: 100/9500
+2025-07-12 16:19:59,973 - INFO - Direct ID search resolved UCC216cCAu5dJ024mJ4qjsdg to channel ID: UCC216cCAu5dJ024mJ4qjsdg
+2025-07-12 16:19:59,974 - INFO - Posting comment on video dXEE1DXTZik: My Baby Was Switched at Birth… And They Tried to Hide It From Me
+2025-07-12 16:19:59,974 - INFO - Quota used: 150/9500
+2025-07-12 16:20:01,013 - INFO - Successfully commented on video dXEE1DXTZik
+2025-07-12 16:20:01,014 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:20:11,014 - INFO - Processing channel: UC9LfSHP4BEPwv4WPh9YrlZQ
+2025-07-12 16:20:11,016 - INFO - Quota used: 250/9500
+2025-07-12 16:20:11,497 - INFO - Direct ID search resolved UC9LfSHP4BEPwv4WPh9YrlZQ to channel ID: UC9LfSHP4BEPwv4WPh9YrlZQ
+2025-07-12 16:20:11,498 - INFO - Processing channel: UCWswINRay_7aA50BgawObxg
+2025-07-12 16:20:11,498 - INFO - Quota used: 350/9500
+2025-07-12 16:20:12,029 - INFO - Direct ID search resolved UCWswINRay_7aA50BgawObxg to channel ID: UCWswINRay_7aA50BgawObxg
+2025-07-12 16:20:12,030 - INFO - Processing channel: UCZJOEqLQMyz21lXe8DVSaYg
+2025-07-12 16:20:12,031 - INFO - Quota used: 450/9500
+2025-07-12 16:20:12,545 - INFO - Direct ID search resolved UCZJOEqLQMyz21lXe8DVSaYg to channel ID: UCZJOEqLQMyz21lXe8DVSaYg
+2025-07-12 16:20:12,546 - INFO - Video HemkR5NvWvY not yet eligible. 2.42 hours left.
+2025-07-12 16:20:12,546 - INFO - Processing channel: UCP1cR6JlZuQQkg5zzq6x0YQ
+2025-07-12 16:20:12,547 - INFO - Quota used: 550/9500
+2025-07-12 16:20:13,051 - INFO - Direct ID search resolved UCP1cR6JlZuQQkg5zzq6x0YQ to channel ID: UCP1cR6JlZuQQkg5zzq6x0YQ
+2025-07-12 16:20:13,051 - INFO - Processing channel: UCvsCt-xWLqJmoMu15dM119g
+2025-07-12 16:20:13,052 - INFO - Quota used: 650/9500
+2025-07-12 16:20:13,561 - INFO - Direct ID search resolved UCvsCt-xWLqJmoMu15dM119g to channel ID: UCvsCt-xWLqJmoMu15dM119g
+2025-07-12 16:20:13,562 - INFO - Posting comment on video s9L8MNcNOSI: At the Family Party, My Dad Looked at Me and Said, “You’re Always the Embarrassment”—So When I…
+2025-07-12 16:20:13,565 - INFO - Quota used: 700/9500
+2025-07-12 16:20:14,831 - INFO - Successfully commented on video s9L8MNcNOSI
+2025-07-12 16:20:14,832 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:20:24,833 - INFO - Posting comment on video RmpEobTqQEU: At The Will Reading, My Sister Inherited $120M—Then Turned To Call Me ‘Useless.’ I Just Smiled And..
+2025-07-12 16:20:24,834 - INFO - Quota used: 750/9500
+2025-07-12 16:20:25,784 - INFO - Successfully commented on video RmpEobTqQEU
+2025-07-12 16:20:25,785 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:20:35,786 - INFO - Posting comment on video eg8tLONhbFE: At The Family Meeting, My Parents Said: &#39;She’ll Pay Everything.&#39; So I Left Without a Word
+2025-07-12 16:20:35,786 - INFO - Quota used: 800/9500
+2025-07-12 16:20:36,852 - INFO - Successfully commented on video eg8tLONhbFE
+2025-07-12 16:20:36,854 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:20:46,855 - INFO - Processing channel: UCu5_Z35I3CempAa0V1VLNFw
+2025-07-12 16:20:46,856 - INFO - Quota used: 900/9500
+2025-07-12 16:20:47,374 - INFO - Direct ID search resolved UCu5_Z35I3CempAa0V1VLNFw to channel ID: UCu5_Z35I3CempAa0V1VLNFw
+2025-07-12 16:20:47,374 - INFO - Posting comment on video iw1zwh5qYfo: Parents Erased Me at My Sister’s Graduation—So I Took Them to Court and Won Our $975,000 Cabin
+2025-07-12 16:20:47,375 - INFO - Quota used: 950/9500
+2025-07-12 16:20:48,463 - INFO - Successfully commented on video iw1zwh5qYfo
+2025-07-12 16:20:48,464 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:20:58,464 - INFO - Posting comment on video n21jiKfUFPY: Mom Yelled, “You’re Dead To Us”—After I Bought A $3,600 House Instead Of Funding My Sister’s Retreat
+2025-07-12 16:20:58,467 - INFO - Quota used: 1000/9500
+2025-07-12 16:20:59,311 - INFO - Successfully commented on video n21jiKfUFPY
+2025-07-12 16:20:59,313 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:21:09,315 - INFO - Posting comment on video 6wXlD4FgyRE: Dad Called Me a Burden and Kicked Me Out—So I Canceled Their $18,000 Trip
+2025-07-12 16:21:09,317 - INFO - Quota used: 1050/9500
+2025-07-12 16:21:10,458 - INFO - Successfully commented on video 6wXlD4FgyRE
+2025-07-12 16:21:10,459 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:21:20,461 - INFO - Processing channel: UCpHpLD-URpThtttHTxefZ4A
+2025-07-12 16:21:20,462 - INFO - Quota used: 1150/9500
+2025-07-12 16:21:21,001 - INFO - Direct ID search resolved UCpHpLD-URpThtttHTxefZ4A to channel ID: UCpHpLD-URpThtttHTxefZ4A
+2025-07-12 16:21:21,002 - INFO - Posting comment on video i2K8OljlkYQ: My neighbor called the cops on the entire neighborhood, So I let her call the cops on herself.
+2025-07-12 16:21:21,003 - INFO - Quota used: 1200/9500
+2025-07-12 16:21:22,368 - INFO - Successfully commented on video i2K8OljlkYQ
+2025-07-12 16:21:22,370 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:21:32,371 - INFO - Posting comment on video LQK3bh4Jaqc: An entitled Disney adult thought he ruled Magic Kingdom, so I got him permanently banned forever.
+2025-07-12 16:21:32,371 - INFO - Quota used: 1250/9500
+2025-07-12 16:21:33,683 - INFO - Successfully commented on video LQK3bh4Jaqc
+2025-07-12 16:21:33,684 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:21:43,686 - INFO - Posting comment on video Ko3wQKX2kFQ: My ex husband gaslit our children about me, so I lit him up in court.
+2025-07-12 16:21:43,688 - INFO - Quota used: 1300/9500
+2025-07-12 16:21:44,717 - INFO - Successfully commented on video Ko3wQKX2kFQ
+2025-07-12 16:21:44,720 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:21:54,721 - INFO - Processing channel: UCC76BQMj84chkunVrSfmNZg
+2025-07-12 16:21:54,722 - INFO - Quota used: 1400/9500
+2025-07-12 16:21:55,235 - INFO - Direct ID search resolved UCC76BQMj84chkunVrSfmNZg to channel ID: UCC76BQMj84chkunVrSfmNZg
+2025-07-12 16:21:55,237 - INFO - Posting comment on video 8maN1GXB_aM: My Sister Faked Divorce Texts to My Husband — Then My Family Called Me Cruel for Cutting Her Off
+2025-07-12 16:21:55,237 - INFO - Quota used: 1450/9500
+2025-07-12 16:21:56,254 - INFO - Successfully commented on video 8maN1GXB_aM
+2025-07-12 16:21:56,255 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:22:06,257 - INFO - Posting comment on video UsLal9zEF6s: At Family Dinner, My Sister Sneered, “Where you live? That’s barely a house. ” My Dad Laughed and…
+2025-07-12 16:22:06,257 - INFO - Quota used: 1500/9500
+2025-07-12 16:22:07,307 - INFO - Successfully commented on video UsLal9zEF6s
+2025-07-12 16:22:07,309 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:22:17,310 - INFO - Posting comment on video OyOvWeCvqSM: My Sister Kicked Me Out — Then Demanded $8K in Rent, Not Knowing I Was Paying All the Bills
+2025-07-12 16:22:17,310 - INFO - Quota used: 1550/9500
+2025-07-12 16:22:18,567 - INFO - Successfully commented on video OyOvWeCvqSM
+2025-07-12 16:22:18,568 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:22:28,569 - INFO - Processing channel: UCH-uZmn5d-oXgCdHD6iwPwQ
+2025-07-12 16:22:28,570 - INFO - Quota used: 1650/9500
+2025-07-12 16:22:29,040 - INFO - Direct ID search resolved UCH-uZmn5d-oXgCdHD6iwPwQ to channel ID: UCH-uZmn5d-oXgCdHD6iwPwQ
+2025-07-12 16:22:29,042 - INFO - Posting comment on video Pq0ZrZWSI4k: Brother Demanded My Promotion Because &quot;Men Need to Provide.&quot; HR&#39;s Investigation Found More...
+2025-07-12 16:22:29,043 - INFO - Quota used: 1700/9500
+2025-07-12 16:22:30,341 - INFO - Successfully commented on video Pq0ZrZWSI4k
+2025-07-12 16:22:30,342 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:22:40,343 - INFO - Posting comment on video M7Y_VFo85rg: My In-Laws Demanded My Inheritance for Their Son&#39;s Wedding. The Lawyer&#39;s Next Words Changed
+2025-07-12 16:22:40,344 - INFO - Quota used: 1750/9500
+2025-07-12 16:22:41,552 - INFO - Successfully commented on video M7Y_VFo85rg
+2025-07-12 16:22:41,553 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:22:51,554 - INFO - Posting comment on video JuMlkCmqIbA: Parents Spent My College Fund on My Brother&#39;s Wedding. I Became Their Boss...
+2025-07-12 16:22:51,555 - INFO - Quota used: 1800/9500
+2025-07-12 16:22:52,663 - INFO - Successfully commented on video JuMlkCmqIbA
+2025-07-12 16:22:52,665 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:23:02,666 - INFO - Processing channel: UCViwb0mLdWrLbGji5jh1e7Q
+2025-07-12 16:23:02,667 - INFO - Quota used: 1900/9500
+2025-07-12 16:23:03,173 - INFO - Direct ID search resolved UCViwb0mLdWrLbGji5jh1e7Q to channel ID: UCViwb0mLdWrLbGji5jh1e7Q
+2025-07-12 16:23:03,174 - INFO - Posting comment on video GPt-Vu6FGLY: Boss Fired Me And Stole My $2.9B Patent—I Froze The Operations Of 48 Companies Around The World
+2025-07-12 16:23:03,175 - INFO - Quota used: 1950/9500
+2025-07-12 16:23:04,136 - INFO - Successfully commented on video GPt-Vu6FGLY
+2025-07-12 16:23:04,138 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:23:14,139 - INFO - Posting comment on video VLYEGIZ6PHY: I Outmaneuvered the New IT Boss - Their “Cost Cut” Became a Data-Driven Checkmate
+2025-07-12 16:23:14,140 - INFO - Quota used: 2000/9500
+2025-07-12 16:23:15,278 - INFO - Successfully commented on video VLYEGIZ6PHY
+2025-07-12 16:23:15,279 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:23:25,280 - INFO - Posting comment on video 0bjUxiGi9q0: I Was Banned From Company&#39;s Award Ceremony - Then I Sent One Email That Changed Everything
+2025-07-12 16:23:25,281 - INFO - Quota used: 2050/9500
+2025-07-12 16:23:26,509 - INFO - Successfully commented on video 0bjUxiGi9q0
+2025-07-12 16:23:26,510 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:23:36,511 - INFO - Processing channel: UCEZGumcmCtmrf-LyhQ98zAw
+2025-07-12 16:23:36,512 - INFO - Quota used: 2150/9500
+2025-07-12 16:23:37,051 - INFO - Direct ID search resolved UCEZGumcmCtmrf-LyhQ98zAw to channel ID: UCEZGumcmCtmrf-LyhQ98zAw
+2025-07-12 16:23:37,052 - INFO - Posting comment on video opBPNKY1ydk: After My C-Section, I Found My Husband&#39;s Phone—But the Last Message Made Me Call MyLawyer
+2025-07-12 16:23:37,052 - INFO - Quota used: 2200/9500
+2025-07-12 16:23:38,078 - INFO - Successfully commented on video opBPNKY1ydk
+2025-07-12 16:23:38,080 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:23:48,080 - INFO - Posting comment on video mUhuKdtTTaM: After My Husband Died, I Tried to Sell His Garage—But Inside Was Something I Never Foresaw
+2025-07-12 16:23:48,081 - INFO - Quota used: 2250/9500
+2025-07-12 16:23:49,250 - INFO - Successfully commented on video mUhuKdtTTaM
+2025-07-12 16:23:49,251 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:23:59,252 - INFO - Posting comment on video _52ta0ZFbiY: At Our Anniversary Dinner, My Husband Got a Call—Then I Saw Who Was Texting Him
+2025-07-12 16:23:59,252 - INFO - Quota used: 2300/9500
+2025-07-12 16:24:00,345 - INFO - Successfully commented on video _52ta0ZFbiY
+2025-07-12 16:24:00,347 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:24:10,348 - INFO - Processing channel: UC89m-I6gczomQSrGvAWtraA
+2025-07-12 16:24:10,349 - INFO - Quota used: 2400/9500
+2025-07-12 16:24:10,912 - INFO - Direct ID search resolved UC89m-I6gczomQSrGvAWtraA to channel ID: UC89m-I6gczomQSrGvAWtraA
+2025-07-12 16:24:10,913 - INFO - Posting comment on video 6PQBfSEtZYA: My Family Mocked My &quot;Minimum Wage Job&quot;—Until The CEO Called Me By Name At Their Company Party
+2025-07-12 16:24:10,913 - INFO - Quota used: 2450/9500
+2025-07-12 16:24:12,191 - INFO - Successfully commented on video 6PQBfSEtZYA
+2025-07-12 16:24:12,192 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:24:22,193 - INFO - Posting comment on video sG2Y5Gpvato: My Parents Kicked Me Out For Their New Son-In-Law—So I Bought Their House And Evicted Them
+2025-07-12 16:24:22,194 - INFO - Quota used: 2500/9500
+2025-07-12 16:24:23,319 - INFO - Successfully commented on video sG2Y5Gpvato
+2025-07-12 16:24:23,320 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:24:33,321 - INFO - Posting comment on video nFDO_YBvgjE: My Sister Stole My $890K Inheritance While I Was Deployed—I Came Home And Froze Everything
+2025-07-12 16:24:33,322 - INFO - Quota used: 2550/9500
+2025-07-12 16:24:34,470 - INFO - Successfully commented on video nFDO_YBvgjE
+2025-07-12 16:24:34,472 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:24:44,472 - INFO - Processing channel: UCQvjk-8vRtb6IIPvCYYSO-Q
+2025-07-12 16:24:44,473 - INFO - Quota used: 2650/9500
+2025-07-12 16:24:44,980 - INFO - Direct ID search resolved UCQvjk-8vRtb6IIPvCYYSO-Q to channel ID: UCQvjk-8vRtb6IIPvCYYSO-Q
+2025-07-12 16:24:44,982 - INFO - Posting comment on video e2qv_dbKFJo: At therapy, my wife called me jealous. I hit play on my phone, and she froze.
+2025-07-12 16:24:44,983 - INFO - Quota used: 2700/9500
+2025-07-12 16:24:46,304 - INFO - Successfully commented on video e2qv_dbKFJo
+2025-07-12 16:24:46,305 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:24:56,306 - INFO - Posting comment on video WPQe7eBLWtU: Message from my wife: &quot;I need you now. It’s urgent. Please come to this address.&quot;
+2025-07-12 16:24:56,313 - INFO - Quota used: 2750/9500
+2025-07-12 16:24:57,283 - INFO - Successfully commented on video WPQe7eBLWtU
+2025-07-12 16:24:57,286 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:25:07,287 - INFO - Posting comment on video uxBw1s-i2TM: My wife got home, saw an envelope on the table, opened it, and saw that...
+2025-07-12 16:25:07,288 - INFO - Quota used: 2800/9500
+2025-07-12 16:25:08,527 - INFO - Successfully commented on video uxBw1s-i2TM
+2025-07-12 16:25:08,528 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:25:18,529 - INFO - Processing channel: UC5YrZYMW0BOt_ARu7rJdpEQ
+2025-07-12 16:25:18,530 - INFO - Quota used: 2900/9500
+2025-07-12 16:25:19,040 - INFO - Direct ID search resolved UC5YrZYMW0BOt_ARu7rJdpEQ to channel ID: UC5YrZYMW0BOt_ARu7rJdpEQ
+2025-07-12 16:25:19,040 - INFO - Posting comment on video QoJWvJc7Ypo: A Nun Hung a Sign Saying “Unworthy” on Herself—He Took It Off and Said “Worthy”
+2025-07-12 16:25:19,041 - INFO - Quota used: 2950/9500
+2025-07-12 16:25:20,047 - INFO - Successfully commented on video QoJWvJc7Ypo
+2025-07-12 16:25:20,048 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:25:30,049 - INFO - Posting comment on video zVJV8DlcJl4: A Widow and Her Four Sons Were Left to Freeze—Until One Silent Cowboy Lit a Fire
+2025-07-12 16:25:30,051 - INFO - Quota used: 3000/9500
+2025-07-12 16:25:31,193 - INFO - Successfully commented on video zVJV8DlcJl4
+2025-07-12 16:25:31,197 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:25:41,203 - INFO - Posting comment on video H3WPeOhegKg: A Pregnant Nun Collapsed at His Door—He Didn&#39;t Ask Why, He Just Let Her Stay
+2025-07-12 16:25:41,204 - INFO - Quota used: 3050/9500
+2025-07-12 16:25:42,182 - INFO - Successfully commented on video H3WPeOhegKg
+2025-07-12 16:25:42,183 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:25:52,185 - INFO - Processing channel: UCyJ6a2hS3hQcws4h-d_9b7A
+2025-07-12 16:25:52,186 - INFO - Quota used: 3150/9500
+2025-07-12 16:25:52,670 - INFO - Direct ID search resolved UCyJ6a2hS3hQcws4h-d_9b7A to channel ID: UCyJ6a2hS3hQcws4h-d_9b7A
+2025-07-12 16:25:52,671 - INFO - Posting comment on video exuS9NQcsR8: THE PAIN #africanfolktales #africanfolktale @nnesfolktales #africanfilms #africa #folklore
+2025-07-12 16:25:52,671 - INFO - Quota used: 3200/9500
+2025-07-12 16:25:54,033 - INFO - Successfully commented on video exuS9NQcsR8
+2025-07-12 16:25:54,036 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:26:04,037 - INFO - Posting comment on video 93rHsEGLUGk: FOOLISHNESS \U0001f92e #africanfolktales #africanfolktale @nnesfolktales #africanfilms #folklore #africa
+2025-07-12 16:26:04,038 - INFO - Quota used: 3250/9500
+2025-07-12 16:26:05,287 - INFO - Successfully commented on video 93rHsEGLUGk
+2025-07-12 16:26:05,288 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:26:15,290 - INFO - Posting comment on video WD3Q0L20aao: She Built Force #africanfolktales #africanfolktale #africanfilms @nnesfolktales  #folklore
+2025-07-12 16:26:15,290 - INFO - Quota used: 3300/9500
+2025-07-12 16:26:16,276 - INFO - Successfully commented on video WD3Q0L20aao
+2025-07-12 16:26:16,277 - INFO - Waiting 10 seconds before next comment...
+2025-07-12 16:26:26,278 - INFO - Run completed. Total quota used: 3300/9500
