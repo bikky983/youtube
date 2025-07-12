@@ -1,15 +1,14 @@
-name: YouTube Auto-Comment Bot
+name: Refresh YouTube Token
 
 on:
   schedule:
-    # Run at 6 AM and 6 PM Eastern Time (UTC-4/5)
-    # 10:00 UTC and 22:00 UTC (to account for daylight saving time)
-    - cron: '0 10,22 * * *'
+    # Run every 3 days at 12:00 UTC
+    - cron: '0 12 */3 * *'
   workflow_dispatch:
     # Allow manual triggering
 
 jobs:
-  run-bot:
+  refresh-token:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -34,45 +33,15 @@ jobs:
           {"installed":{"client_id":"584570444735-3rddtpke08e9bv4t7efqcrknvtt5idfb.apps.googleusercontent.com","project_id":"direct-tribute-465003-s8","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["http://localhost"]}}
           EOF
 
-      - name: Create channel IDs file
-        run: |
-          if [ ! -f "channel_ids.txt" ] || [ ! -s "channel_ids.txt" ]; then
-            if [ -n "${{ secrets.YOUTUBE_CHANNEL_IDS }}" ]; then
-              echo "${{ secrets.YOUTUBE_CHANNEL_IDS }}" | tr ',' '\n' > channel_ids.txt
-            else
-              # Use default channel IDs from the repo if they exist
-              touch channel_ids.txt
-            fi
-          fi
-
-      - name: Create comments file
-        run: |
-          if [ ! -f "comments.txt" ] || [ ! -s "comments.txt" ]; then
-            if [ -n "${{ secrets.YOUTUBE_COMMENTS }}" ]; then
-              echo "${{ secrets.YOUTUBE_COMMENTS }}" > comments.txt
-            else
-              # Create default comments if none exist
-              echo -e "Great video!\nVery informative content!\nThanks for sharing!" > comments.txt
-            fi
-          fi
-
-      - name: Create posted_videos file if not exists
-        run: |
-          if [ ! -f "posted_videos.txt" ]; then
-            touch posted_videos.txt
-          fi
-
       - name: Restore token pickle
         run: |
-          if [ ! -f "token.pickle" ] || [ ! -s "token.pickle" ]; then
-            if [ -n "${{ secrets.YOUTUBE_TOKEN_PICKLE }}" ]; then
-              echo "${{ secrets.YOUTUBE_TOKEN_PICKLE }}" | base64 -d > token.pickle
-            elif [ -f "token_base64.txt" ] && [ -s "token_base64.txt" ]; then
-              cat token_base64.txt | base64 -d > token.pickle
-            fi
+          if [ -n "${{ secrets.YOUTUBE_TOKEN_PICKLE }}" ]; then
+            echo "${{ secrets.YOUTUBE_TOKEN_PICKLE }}" | base64 -d > token.pickle
+          elif [ -f "token_base64.txt" ] && [ -s "token_base64.txt" ]; then
+            cat token_base64.txt | base64 -d > token.pickle
           fi
         continue-on-error: true
-        
+
       - name: Check token and refresh if needed
         run: |
           # Create a simple script to check and refresh token
@@ -97,13 +66,8 @@ jobs:
           
           # Run the token check script
           python check_token.py
-        continue-on-error: true
 
-      - name: Run YouTube bot
-        run: python main.py --run-once
-        id: run_bot
-
-      - name: Save token pickle
+      - name: Save refreshed token
         if: success()
         run: |
           if [ -f "token.pickle" ] && [ -s "token.pickle" ]; then
@@ -111,7 +75,7 @@ jobs:
             echo "::add-mask::$TOKEN_PICKLE"
             echo "TOKEN_PICKLE=$TOKEN_PICKLE" >> $GITHUB_ENV
             echo "$TOKEN_PICKLE" > token_base64.txt
-            echo "Token pickle saved to token_base64.txt"
+            echo "Token refreshed and saved to token_base64.txt"
           fi
 
       - name: Commit changes
@@ -121,15 +85,16 @@ jobs:
           git config --local user.name "GitHub Actions"
           
           # Check if there are changes to commit
-          if git status --porcelain | grep -q "posted_videos.txt\|token_base64.txt"; then
-            git add posted_videos.txt token_base64.txt
-            git commit -m "Update posted videos list and token [skip ci]"
+          if git status --porcelain | grep -q "token_base64.txt"; then
+            git add token_base64.txt
+            git commit -m "Refresh YouTube API token [skip ci]"
             
             # Set up authentication for pushing
             git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
             
             # Push changes
             git push
+            echo "Token refreshed and changes committed"
           else
-            echo "No changes to commit"
+            echo "No changes to commit - token is still valid"
           fi 
